@@ -18,6 +18,9 @@ namespace Untitled_masterpiece
         private int currFrame = 0;
         private int currAnimation = 1;
         private bool isPresedAnyKey = false;
+        Graphics gr;
+        Player player;
+
         public Untitled_masterpiece()
         {
             InitializeComponent();
@@ -25,12 +28,16 @@ namespace Untitled_masterpiece
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
+            gr = this.CreateGraphics();
+
             playerImg_L = new Bitmap("D:\\slime.png");
             playerImg_R = new Bitmap("D:\\slimeR.png");
 
+            timer2.Interval = 1;
+            timer2.Tick += new EventHandler(updateMove);
+            timer2.Start();
 
-
-            timer1.Interval = 100;
+            timer1.Interval = 75;
             timer1.Tick += new EventHandler(update);
             timer1.Start();
 
@@ -40,6 +47,22 @@ namespace Untitled_masterpiece
 
 
 
+        }
+
+        private void updateMove(object sender, EventArgs e)
+        {
+            switch (currAnimation)
+            {
+                case 1:
+                    //currAnimation = 1;
+                    pictureBox1.Location = new Point(pictureBox1.Location.X - 2, pictureBox1.Location.Y);
+                    break;
+                case 2:
+                    //currAnimation = 2;
+                    pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
+                    break;
+
+            }
         }
 
         private void freeKeyb(object sender, KeyEventArgs e)
@@ -65,11 +88,11 @@ namespace Untitled_masterpiece
             {
                 case "A":
                     currAnimation = 1;
-                    pictureBox1.Location = new Point(pictureBox1.Location.X - 1, pictureBox1.Location.Y);
+                    //pictureBox1.Location = new Point(pictureBox1.Location.X - 1, pictureBox1.Location.Y);
                     break;
                 case "D":
                     currAnimation = 2;
-                    pictureBox1.Location = new Point(pictureBox1.Location.X + 1, pictureBox1.Location.Y);
+                    //pictureBox1.Location = new Point(pictureBox1.Location.X + 1, pictureBox1.Location.Y);
                     break;
 
             }
