@@ -12,7 +12,7 @@ namespace Untitled_masterpiece
         public Image _spritesAnimation;
         public int _x, _y;
         public Size _scale;
-        public int currFrame = 0;
+        public int currFrame = 1;
         public int currAnimation = 0;
         public Image part;
         public int speed;
@@ -22,29 +22,29 @@ namespace Untitled_masterpiece
             this._x = _x;
             this._y = _y;
             this._spritesAnimation = _spriteAnimation;
-            //speed = 4;
+            speed = 4;
         }
         public void Left()
         {
-            _x -= 1;//speed;
+            _x -= speed;
             //playerPic.Location = new Point(playerPic.Location.X - 1, playerPic.Location.Y);
         }
 
         public void Right()
         {
-            _x += 1;// speed;
+            _x +=  speed;
             //playerPic.Location = new Point(playerPic.Location.X + 1, playerPic.Location.Y);
         }
 
-        public void Up()
+        public void Jump()
         {
-            _y -= 1;//speed;
+            _y -= speed;
             //playerPic.Location = new Point(playerPic.Location.X , playerPic.Location.Y-1);
         }
 
-        public void Down()
+        public void Fall()
         {
-            _y += 1;// speed;
+            _y += speed;
             //playerPic.Location = new Point(playerPic.Location.X, playerPic.Location.Y+1);
         }
     }
