@@ -81,8 +81,6 @@ namespace Untitled_masterpiece
 
         }
 
-        
-
         private void OnPaint(object sender, PaintEventArgs e)
         {
             Graphics gr = e.Graphics;
@@ -121,6 +119,7 @@ namespace Untitled_masterpiece
             skyBluePen.Dispose();
 
         }
+
         private void updateMove(object sender, EventArgs e)
         {
             switch (currAnimation)
