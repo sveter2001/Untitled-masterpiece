@@ -18,6 +18,7 @@ namespace Untitled_masterpiece
         public int currAnimation = 0;
         public int speed;
         public Vector _dir;
+        Vector vector;
         public Player(Size _scale, int _x, int _y, Image _spriteAnimation, Vector _dir)
         {
             this._scale = _scale;
@@ -48,18 +49,29 @@ namespace Untitled_masterpiece
             //playerPic.Location = new Point(playerPic.Location.X + 1, playerPic.Location.Y);
         }
 
-        public void Jump()
+        public void Jump(Vector dir)
         {
             //_y -= speed;
             //if ( Math.Abs(_dir.Y) < 4)
             //    _dir += UpR;
-            _dir = UpR;
+            //_dir = UpR;
             //playerPic.Location = new Point(playerPic.Location.X , playerPic.Location.Y-1);
+
+            System.Windows.Point startingpoint = new System.Windows.Point(_x, _y);
+            //Vector dir = new Vector(_dir.X, _dir.Y);
+            System.Windows.Point pointResult = new System.Windows.Point();
+
+            pointResult = startingpoint + dir;
+
+            _x = (int)pointResult.X;
+            _y = (int)pointResult.Y;
+
+
         }
 
         public void Fall()
         {
-            if (Math.Abs(_dir.Y) < 4)
+            if (Math.Abs(_dir.Y) < 8)
                 _dir = Down;
             //_y += speed;
             //playerPic.Location = new Point(playerPic.Location.X, playerPic.Location.Y+1);

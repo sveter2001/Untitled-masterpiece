@@ -19,14 +19,16 @@ namespace Untitled_masterpiece
         Image playerImg;
         Image grassImg;
         //private int currFrame = 0;
-        private int currAnimation = 0;
+        private int currAnimation = 6;
         private bool isPressedAnyKey = false;
         Player player;
-        Vector Down = new Vector(0, -4);
-        int width = 10;
+        Vector jumpL = new Vector(-6, -35);
+        Vector jumpR = new Vector(6, -35);
+        Vector vector;
+
+        int width = 15;
         int height = 10;
 
-        int var = 0;
 
         int[,] map;
         int sideOfMapObject;
@@ -47,17 +49,15 @@ namespace Untitled_masterpiece
 
             dir = new Vector(0, 0);
 
-            player = new Player(new Size(128,128),100,100,playerImg,dir);
-            timer2.Interval = 10;
+            player = new Player(new Size(128,128),272,100,playerImg,dir);
+            timer2.Interval = 1;
             timer2.Tick += new EventHandler(updateMove);
             timer2.Start();
 
-            timer1.Interval = 75;
+            timer1.Interval = 50;
             timer1.Tick += new EventHandler(update);
             timer1.Start();
 
-            timer3.Interval = 100;
-            //timer3.Tick += new EventHandler(updateFall);
 
             sideOfMapObject = 128;
 
@@ -67,17 +67,17 @@ namespace Untitled_masterpiece
             delta = new Point(0,0);
 
 
-            map = new int[10, 10]{
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 1, 1, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, } ;
+            map = new int[10, 15]{
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0 },
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0 },
+            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, } ;
 
         }
 
@@ -94,9 +94,9 @@ namespace Untitled_masterpiece
 
         private void CreateMap(Graphics gr)
         {
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < width ; j++)
                 {
                     if (map[i, j] == 0)
                     {
@@ -107,7 +107,7 @@ namespace Untitled_masterpiece
                         MakePlatform(j,i,gr);
                         //gr.DrawImage(dirtImg, j * 80 + delta.X, i * 80 + delta.Y, new Rectangle(new Point(0, 0), new Size(80, 80)), GraphicsUnit.Pixel);
                     }
-                    label1.Text = player._y.ToString();
+                    label1.Text = player._x.ToString();
                 }
             }
         }
@@ -121,17 +121,6 @@ namespace Untitled_masterpiece
             skyBluePen.Dispose();
 
         }
-        //private void updateFall(object sender, EventArgs e)
-        //{
-        //    if (!isPressedAnyKey)
-        //    {
-        //        timer3.Stop();
-        //        player._dir.Y = var;
-        //    }
-        //    //player._dir.Y--;
-        //    if(var>-7)
-        //    var--;
-        //}
         private void updateMove(object sender, EventArgs e)
         {
             switch (currAnimation)
@@ -139,35 +128,33 @@ namespace Untitled_masterpiece
                 case 1:
                     //currAnimation = 1;
                     player.Left();
-                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
-                    delta.X+=player.speed;
+                    if (player._x >= this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
+                        delta.X += player.speed;
                     //pictureBox1.Location = new Point(pictureBox1.Location.X - 2, pictureBox1.Location.Y);
                     break;
                 case 2:
                     //currAnimation = 2;
                     player.Right();
-                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
+                    if (player._x >= this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
                         delta.X -= player.speed;
                     //pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
                     break;
                 case 3:
                     //currAnimation = 3;
-                    player.Jump();
-                    //if (player._y > this.Height / 2 && player._y < sideOfMapObject * height - this.Height / 2)
-                    //    delta.Y += player.speed;
+                    player.Jump(jumpL);
+                    player._dir.Y += 1;//гравитация при прыжке
+                    if (player._x >= this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
+                        delta.X += player.speed;
                     //pictureBox1.Location = new Point(pictureBox1.Location.X - 2, pictureBox1.Location.Y);
-                    //if (!isPressedAnyKey)
-                    //{
-                    //    timer3.Start();
-                    //}
                     break;
-                //case 4:
-                //    //currAnimation = 4;
-                //    player.Fall();
-                //    if (player._y > this.Height / 2 && player._y < sideOfMapObject * height - this.Height / 2)
-                //        delta.Y -= player.speed;
-                //    //pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
-                //    break;
+                case 4:
+                    //currAnimation = 4;
+                    player.Jump(jumpR);
+                    player._dir.Y += 1;//гравитация при прыжке
+                    if (player._x >= this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
+                        delta.X -= player.speed;
+                    //pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
+                    break;
             }
 
             System.Windows.Point startingpoint = new System.Windows.Point(player._x, player._y);
@@ -179,16 +166,33 @@ namespace Untitled_masterpiece
             player._x = (int)pointResult.X;
             player._y = (int)pointResult.Y;
 
-            player.Fall();
+            if (player._dir.Y <= 5)//гравитация
+                player._dir.Y += 15;
             //if (player._y > this.Height / 2 && player._y < sideOfMapObject * height - this.Height / 2)
             //    delta.Y -= player.speed;
 
-
-            if (map[Math.Abs(player._y)/128, Math.Abs(player._x) / 128]==1)
+            vector.X = 0;
+            vector.Y = player._dir.Y;
+            if (map[Math.Abs(player._y) / 128, Math.Abs(player._x) / 128] == 1)
             {
-                player._dir += Down;
-            }
                 
+                player._dir += -1 * vector;//изменив здесь единичку на другое число можно сделать джамп пад//строка колизии платформ сверху
+                player._y = (Math.Abs(player._y) / 128) * 128 - 1;
+
+                //player._dir.Y -= 1;
+            }
+            if (map[(Math.Abs(player._y)) / 128, Math.Abs(player._x + 20) / 128] == 1)
+            {
+                player._x = player._x - 6;
+            }
+            if (map[(Math.Abs(player._y)) / 128, Math.Abs(player._x - 20) / 128] == 1)
+            {
+                player._x = player._x + 6;
+            }
+            if (map[Math.Abs(player._y-32) / 128, Math.Abs(player._x) / 128] == 1)
+            {
+                player._y = player._y + 20;
+            }
         }
 
         private void freeKeyb(object sender, KeyEventArgs e)
@@ -218,8 +222,6 @@ namespace Untitled_masterpiece
             }
 
             player._dir.X = 0;
-
-
         }
 
         private void keyboard(object sender, KeyEventArgs e)
@@ -233,13 +235,13 @@ namespace Untitled_masterpiece
                     currAnimation = 2;
                     break;
                 case "W":
-                    currAnimation = 3;
-                    break;
-                case "S":
-                    currAnimation = 4;
+                    if(currAnimation == 5)
+                        currAnimation = 3;
+                    if (currAnimation == 6)
+                        currAnimation = 4;
                     break;
             }
-            if (e.KeyCode.ToString() == "A" || e.KeyCode.ToString() == "D"|| e.KeyCode.ToString() == "W"|| e.KeyCode.ToString() == "S")
+            if (e.KeyCode.ToString() == "A" || e.KeyCode.ToString() == "D"|| e.KeyCode.ToString() == "W")
             isPressedAnyKey = true;
         }
 
@@ -270,30 +272,30 @@ namespace Untitled_masterpiece
             {
                 if (currAnimation == 1)
                 {
-                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 112, new Rectangle(new Point(128 * player.currFrame, 128 * 1 /*player.currAnimation*/), new Size(128, 128)), GraphicsUnit.Pixel);
+                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 127, new Rectangle(new Point(128 * player.currFrame, 128 * 1 /*player.currAnimation*/), new Size(128, 128)), GraphicsUnit.Pixel);
                 }
                 if (currAnimation == 2)
                 {
-                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 112, new Rectangle(new Point(2560 - 128 * player.currFrame, 128 * 1 /*player.currAnimation*/), new Size(128, 128)), GraphicsUnit.Pixel);
+                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 127, new Rectangle(new Point(2560 - 128 * player.currFrame, 128 * 1 /*player.currAnimation*/), new Size(128, 128)), GraphicsUnit.Pixel);
                 }
                 if (currAnimation == 3)
                 {
-                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 112, new Rectangle(new Point(128 * player.currFrame, 128 * 1 /*player.currAnimation*/), new Size(128, 128)), GraphicsUnit.Pixel);
+                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 127, new Rectangle(new Point(128 * player.currFrame, 128 * 2 /*player.currAnimation*/), new Size(128, 128)), GraphicsUnit.Pixel);
                 }
                 if (currAnimation == 4)
                 {
-                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 112, new Rectangle(new Point(2560 - 128 * player.currFrame, 128 * 2 /*player.currAnimation*/), new Size(128, 128)), GraphicsUnit.Pixel);
+                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 127, new Rectangle(new Point(2560 - 128 * player.currFrame, 128 * 2 /*player.currAnimation*/), new Size(128, 128)), GraphicsUnit.Pixel);
                 }
             }
             else
             {
                 if (currAnimation == 5)
                 {
-                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 112, new Rectangle(new Point(128 * player.currFrame, 128 * 0 /*(player.currAnimation - 5)*/), new Size(128, 128)), GraphicsUnit.Pixel);
+                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 127, new Rectangle(new Point(128 * player.currFrame, 128 * 0 /*(player.currAnimation - 5)*/), new Size(128, 128)), GraphicsUnit.Pixel);
                 }
                 if (currAnimation == 6)
                 {
-                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 112, new Rectangle(new Point(2560 - 128 * player.currFrame, 128 * 0 /*(player.currAnimation - 5)*/), new Size(128, 128)), GraphicsUnit.Pixel);
+                    gr.DrawImage(player._spritesAnimation, player._x + delta.X - 64, player._y + delta.Y - 127, new Rectangle(new Point(2560 - 128 * player.currFrame, 128 * 0 /*(player.currAnimation - 5)*/), new Size(128, 128)), GraphicsUnit.Pixel);
                 }
             }
 

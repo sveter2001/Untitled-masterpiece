@@ -36,7 +36,6 @@ namespace Untitled_masterpiece
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // button_Start
@@ -80,7 +79,7 @@ namespace Untitled_masterpiece
             // Untitled_masterpiece
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(1473, 826);
+            this.ClientSize = new System.Drawing.Size(1254, 800);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_Exit);
             this.Controls.Add(this.button_Choose_level);
@@ -106,7 +105,6 @@ namespace Untitled_masterpiece
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Timer timer3;
     }
 }
 
