@@ -18,7 +18,7 @@ namespace Untitled_masterpiece
         public int currAnimation = 0;
         public int speed;
         public Vector _dir;
-        Vector vector;
+        //Vector vector;
         public Player(Size _scale, int _x, int _y, Image _spriteAnimation, Vector _dir)
         {
             this._scale = _scale;
@@ -26,7 +26,7 @@ namespace Untitled_masterpiece
             this._y = _y+112;
             this._dir = _dir;
             this._spritesAnimation = _spriteAnimation;
-            speed = 4;
+            speed = 6;
         }
 
         Vector L = new Vector(-3,0);

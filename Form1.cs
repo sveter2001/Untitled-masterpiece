@@ -22,13 +22,14 @@ namespace Untitled_masterpiece
         private int currAnimation = 6;
         private bool isPressedAnyKey = false;
         Player player;
+        //PlayerMod playermod;
         Vector jumpL = new Vector(-6, -35);
         Vector jumpR = new Vector(6, -35);
         Vector vector;
-
+        Vector check = new Vector(0,0);
         int width = 15;
         int height = 10;
-
+        bool camera = false;
 
         int[,] map;
         int sideOfMapObject;
@@ -70,9 +71,9 @@ namespace Untitled_masterpiece
             map = new int[10, 15]{
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0 },
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0 },
+            { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -105,7 +106,7 @@ namespace Untitled_masterpiece
                         MakePlatform(j,i,gr);
                         //gr.DrawImage(dirtImg, j * 80 + delta.X, i * 80 + delta.Y, new Rectangle(new Point(0, 0), new Size(80, 80)), GraphicsUnit.Pixel);
                     }
-                    label1.Text = player._x.ToString();
+                    label1.Text = player._y.ToString();
                 }
             }
         }
@@ -127,22 +128,23 @@ namespace Untitled_masterpiece
                 case 1:
                     //currAnimation = 1;
                     player.Left();
-                    if (player._x >= this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
-                        delta.X += player.speed;
+                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
+                        //delta.X += player.speed;
+                        delta.X -= (int)player._dir.X;
                     //pictureBox1.Location = new Point(pictureBox1.Location.X - 2, pictureBox1.Location.Y);
                     break;
                 case 2:
                     //currAnimation = 2;
                     player.Right();
-                    if (player._x >= this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
-                        delta.X -= player.speed;
+                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
+                        delta.X -= (int)player._dir.X;                        
                     //pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
                     break;
                 case 3:
                     //currAnimation = 3;
                     player.Jump(jumpL);
                     player._dir.Y += 1;//гравитация при прыжке
-                    if (player._x >= this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
+                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
                         delta.X += player.speed;
                     //pictureBox1.Location = new Point(pictureBox1.Location.X - 2, pictureBox1.Location.Y);
                     break;
@@ -150,12 +152,13 @@ namespace Untitled_masterpiece
                     //currAnimation = 4;
                     player.Jump(jumpR);
                     player._dir.Y += 1;//гравитация при прыжке
-                    if (player._x >= this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2)
+                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
                         delta.X -= player.speed;
                     //pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
                     break;
-            }
 
+            }
+            camera = false;
             System.Windows.Point startingpoint = new System.Windows.Point(player._x, player._y);
             Vector dir = new Vector(player._dir.X, player._dir.Y);
             System.Windows.Point pointResult = new System.Windows.Point();
@@ -169,29 +172,29 @@ namespace Untitled_masterpiece
                 player._dir.Y += 15;
             //if (player._y > this.Height / 2 && player._y < sideOfMapObject * height - this.Height / 2)
             //    delta.Y -= player.speed;
-
+            
             vector.X = 0;
             vector.Y = player._dir.Y;
             if (map[Math.Abs(player._y) / 128, Math.Abs(player._x) / 128] == 1)
             {
-                
                 player._dir += -1 * vector;//изменив здесь единичку на другое число можно сделать джамп пад//строка колизии платформ сверху
                 player._y = (Math.Abs(player._y) / 128) * 128 - 1;
-
-                //player._dir.Y -= 1;
             }
             if (map[(Math.Abs(player._y)) / 128, Math.Abs(player._x + 20) / 128] == 1)
             {
+                camera = true;
                 player._x = player._x - 6;
             }
             if (map[(Math.Abs(player._y)) / 128, Math.Abs(player._x - 20) / 128] == 1)
             {
+                camera = true;
                 player._x = player._x + 6;
             }
             if (map[Math.Abs(player._y-32) / 128, Math.Abs(player._x) / 128] == 1)
             {
                 player._y = player._y + 20;
             }
+            
         }
 
         private void freeKeyb(object sender, KeyEventArgs e)
@@ -234,11 +237,15 @@ namespace Untitled_masterpiece
                     currAnimation = 2;
                     break;
                 case "W":
-                    if(currAnimation == 5)
+                    //currAnimation = 3;
+                    if (currAnimation == 5)
                         currAnimation = 3;
                     if (currAnimation == 6)
                         currAnimation = 4;
                     break;
+                //case "S":
+                //    currAnimation = 4;
+                //    break;
             }
             if (e.KeyCode.ToString() == "A" || e.KeyCode.ToString() == "D"|| e.KeyCode.ToString() == "W")
             isPressedAnyKey = true;
