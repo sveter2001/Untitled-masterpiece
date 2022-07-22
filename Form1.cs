@@ -106,7 +106,7 @@ namespace Untitled_masterpiece
                         MakePlatform(j,i,gr);
                         //gr.DrawImage(dirtImg, j * 80 + delta.X, i * 80 + delta.Y, new Rectangle(new Point(0, 0), new Size(80, 80)), GraphicsUnit.Pixel);
                     }
-                    label1.Text = delta.Y.ToString();
+                    label1.Text = player._x.ToString();
                 }
             }
         }
@@ -215,7 +215,6 @@ namespace Untitled_masterpiece
             }
             if (map[(Math.Abs(player._y)) / 128, Math.Abs(player._x - 22) / 128] == 1)
             {
-                
                 player._x = player._x + 6;
                 camera = true;
             }
@@ -224,6 +223,20 @@ namespace Untitled_masterpiece
                 camera = true;
                 player._y = player._y + 20;
             }
+
+            if (map[(Math.Abs(player._y)) / 128, Math.Abs(player._x + 24) / 128] == 1)
+            {
+                player._x = player._x - 1;
+                camera = true;
+            }
+            if (map[(Math.Abs(player._y)) / 128, Math.Abs(player._x - 25) / 128] == 1)
+            {
+                player._x = player._x + 1;
+                camera = true;
+            }
+
+
+
 
             switch (currAnimation)
             {
