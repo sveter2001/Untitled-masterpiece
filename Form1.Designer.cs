@@ -79,7 +79,7 @@ namespace Untitled_masterpiece
             // Untitled_masterpiece
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(1254, 800);
+            this.ClientSize = new System.Drawing.Size(1260, 677);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_Exit);
             this.Controls.Add(this.button_Choose_level);
