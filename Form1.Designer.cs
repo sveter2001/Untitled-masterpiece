@@ -40,9 +40,9 @@ namespace Untitled_masterpiece
             // 
             // button_Start
             // 
-            this.button_Start.Location = new System.Drawing.Point(890, 12);
+            this.button_Start.Location = new System.Drawing.Point(1167, 12);
             this.button_Start.Name = "button_Start";
-            this.button_Start.Size = new System.Drawing.Size(358, 124);
+            this.button_Start.Size = new System.Drawing.Size(81, 27);
             this.button_Start.TabIndex = 0;
             this.button_Start.Text = "Start";
             this.button_Start.UseVisualStyleBackColor = true;
@@ -50,18 +50,18 @@ namespace Untitled_masterpiece
             // 
             // button_Choose_level
             // 
-            this.button_Choose_level.Location = new System.Drawing.Point(890, 142);
+            this.button_Choose_level.Location = new System.Drawing.Point(1167, 45);
             this.button_Choose_level.Name = "button_Choose_level";
-            this.button_Choose_level.Size = new System.Drawing.Size(358, 124);
+            this.button_Choose_level.Size = new System.Drawing.Size(81, 27);
             this.button_Choose_level.TabIndex = 1;
             this.button_Choose_level.Text = "Choose level";
             this.button_Choose_level.UseVisualStyleBackColor = true;
             // 
             // button_Exit
             // 
-            this.button_Exit.Location = new System.Drawing.Point(890, 272);
+            this.button_Exit.Location = new System.Drawing.Point(1167, 78);
             this.button_Exit.Name = "button_Exit";
-            this.button_Exit.Size = new System.Drawing.Size(358, 124);
+            this.button_Exit.Size = new System.Drawing.Size(81, 27);
             this.button_Exit.TabIndex = 2;
             this.button_Exit.Text = "Exit";
             this.button_Exit.UseVisualStyleBackColor = true;
@@ -70,7 +70,7 @@ namespace Untitled_masterpiece
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1026, 456);
+            this.label1.Location = new System.Drawing.Point(1164, 117);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 3;

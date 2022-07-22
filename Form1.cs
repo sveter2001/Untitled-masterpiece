@@ -71,9 +71,9 @@ namespace Untitled_masterpiece
             map = new int[10, 20]{
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
-            { 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
             { 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
             { 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -85,10 +85,8 @@ namespace Untitled_masterpiece
         private void OnPaint(object sender, PaintEventArgs e)
         {
             Graphics gr = e.Graphics;
-
             CreateMap(gr);
             PlayAnimation(gr);
-
         }
 
         private void CreateMap(Graphics gr)
@@ -106,7 +104,6 @@ namespace Untitled_masterpiece
                         MakePlatform(j,i,gr);
                         //gr.DrawImage(dirtImg, j * 80 + delta.X, i * 80 + delta.Y, new Rectangle(new Point(0, 0), new Size(80, 80)), GraphicsUnit.Pixel);
                     }
-                    label1.Text = player._x.ToString();
                 }
             }
         }
@@ -126,35 +123,18 @@ namespace Untitled_masterpiece
             switch (currAnimation)
             {
                 case 1:
-                    //currAnimation = 1;
                     player.Left();
-                    //if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
-                    //    delta.X -= (int)player._dir.X;
-                    //delta.X += player.speed;
-                    //pictureBox1.Location = new Point(pictureBox1.Location.X - 2, pictureBox1.Location.Y);
                     break;
                 case 2:
-                    //currAnimation = 2;
                     player.Right();
-                    //if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
-                    //    delta.X -= (int)player._dir.X;
-                    //pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
                     break;
                 case 3:
-                    //currAnimation = 3;
                     player.Jump(jumpL);
                     player._dir.Y += 1;//гравитация при прыжке
-                    //if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
-                    //    delta.X += +player.speed;
-                    //pictureBox1.Location = new Point(pictureBox1.Location.X - 2, pictureBox1.Location.Y);
                     break;
                 case 4:
-                    //currAnimation = 4;
                     player.Jump(jumpR);
                     player._dir.Y += 1;//гравитация при прыжке
-                    //if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
-                    //    delta.X -= +player.speed;
-                    //pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
                     break;
 
             }
@@ -223,7 +203,6 @@ namespace Untitled_masterpiece
                 camera = true;
                 player._y = player._y + 20;
             }
-
             if (map[(Math.Abs(player._y)) / 128, Math.Abs(player._x + 24) / 128] == 1)
             {
                 player._x = player._x - 1;
@@ -238,36 +217,29 @@ namespace Untitled_masterpiece
 
 
 
-            switch (currAnimation)
+            switch (currAnimation)//camera
             {
                 case 1:
-                    //currAnimation = 1;
-                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
-                        delta.X -= (int)player._dir.X;
+                    if (player._x > this.Width / 2 && player._x <= sideOfMapObject * width - this.Width / 2 && !camera)
+                        delta.X += 6;
+                    //delta.X -= (int)player._dir.X;
                     break;
                 case 2:
-                    //currAnimation = 2;
-                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
-                        delta.X -= (int)player._dir.X;
+                    if (player._x > this.Width / 2 && player._x <= sideOfMapObject * width - this.Width / 2 && !camera)
+                        delta.X -= 6;
                     break;
                 case 3:
-                    //currAnimation = 3;
-                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
-                        delta.X += +player.speed;
+                    if (player._x > this.Width / 2 && player._x <= sideOfMapObject * width - this.Width / 2 && !camera)
+                        delta.X += +6;
+                    //delta.X += +player.speed;
                     break;
                 case 4:
-                    //currAnimation = 4;
-                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
-                        delta.X -= +player.speed;
+                    if (player._x > this.Width / 2 && player._x <= sideOfMapObject * width - this.Width / 2 && !camera)
+                        delta.X -= +6;
+                    //delta.X -= +player.speed;
                     break;
             }
-
-
-
-
-
-
-
+            label1.Text = delta.X.ToString();
 
         }
 
@@ -285,6 +257,7 @@ namespace Untitled_masterpiece
                 player.currFrame = 1;
                 currAnimation = 6;
             }
+
             if (currAnimation == 3)
             {
                 player.currFrame = 1;
@@ -296,7 +269,6 @@ namespace Untitled_masterpiece
                 player.currFrame = 1;
                 currAnimation = 6;
             }
-
             player._dir.X = 0;
         }
 
@@ -311,17 +283,19 @@ namespace Untitled_masterpiece
                     currAnimation = 2;
                     break;
                 case "W":
-                    //currAnimation = 3;
                     if (currAnimation == 5)
                         currAnimation = 3;
                     if (currAnimation == 6)
                         currAnimation = 4;
                     break;
-                //case "S":
-                //    currAnimation = 4;
-                //    break;
+                case "Space":
+                    if (currAnimation == 5)
+                        currAnimation = 3;
+                    if (currAnimation == 6)
+                        currAnimation = 4;
+                    break;
             }
-            if (e.KeyCode.ToString() == "A" || e.KeyCode.ToString() == "D"|| e.KeyCode.ToString() == "W")
+            if (e.KeyCode.ToString() == "A" || e.KeyCode.ToString() == "D"|| e.KeyCode.ToString() == "W"|| e.KeyCode.ToString() == "Space")
             isPressedAnyKey = true;
         }
 

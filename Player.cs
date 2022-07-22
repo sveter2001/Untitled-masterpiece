@@ -31,7 +31,6 @@ namespace Untitled_masterpiece
 
         Vector L = new Vector(-3,0);
         Vector R = new Vector(3, 0);
-        Vector UpR = new Vector(0, -3);
         Vector Down = new Vector(0, 4);
         public void Left()
         {
