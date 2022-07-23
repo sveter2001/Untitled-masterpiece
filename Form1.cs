@@ -72,7 +72,7 @@ namespace Untitled_masterpiece
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
             { 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
             { 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
@@ -220,21 +220,22 @@ namespace Untitled_masterpiece
             switch (currAnimation)//camera
             {
                 case 1:
-                    if (player._x > this.Width / 2 && player._x <= sideOfMapObject * width - this.Width / 2 && !camera)
-                        delta.X += 6;
-                    //delta.X -= (int)player._dir.X;
+                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
+                        //delta.X += 6;
+                    delta.X -= (int)player._dir.X;
                     break;
                 case 2:
-                    if (player._x > this.Width / 2 && player._x <= sideOfMapObject * width - this.Width / 2 && !camera)
-                        delta.X -= 6;
+                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
+                        //delta.X -= 6;
+                    delta.X -= (int)player._dir.X;
                     break;
                 case 3:
-                    if (player._x > this.Width / 2 && player._x <= sideOfMapObject * width - this.Width / 2 && !camera)
+                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
                         delta.X += +6;
                     //delta.X += +player.speed;
                     break;
                 case 4:
-                    if (player._x > this.Width / 2 && player._x <= sideOfMapObject * width - this.Width / 2 && !camera)
+                    if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && !camera)
                         delta.X -= +6;
                     //delta.X -= +player.speed;
                     break;

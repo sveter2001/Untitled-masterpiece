@@ -29,8 +29,8 @@ namespace Untitled_masterpiece
             speed = 6;
         }
 
-        Vector L = new Vector(-3,0);
-        Vector R = new Vector(3, 0);
+        Vector L = new Vector(-6,0);
+        Vector R = new Vector(6, 0);
         Vector Down = new Vector(0, 4);
         public void Left()
         {
