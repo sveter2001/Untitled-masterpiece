@@ -72,7 +72,7 @@ namespace Untitled_masterpiece
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
             { 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
             { 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
@@ -127,10 +127,10 @@ namespace Untitled_masterpiece
             switch (currAnimation)
             {
                 case 1:
-                    player.Left();
+                    player.Left(); 
                     break;
                 case 2:
-                    player.Right();
+                    player.Right(); 
                     break;
                 case 3:
                     player.Jump(jumpL);
@@ -245,6 +245,9 @@ namespace Untitled_masterpiece
 
 
             label1.Text = delta.X.ToString();
+            label2.Text = delta.Y.ToString();
+            label3.Text = player._x.ToString();
+            label4.Text = player._y.ToString();
 
         }
 
@@ -275,6 +278,11 @@ namespace Untitled_masterpiece
                 currAnimation = 6;
             }
             player._dir.X = 0;
+
+            if (player._x > this.Width / 2  && player._x < sideOfMapObject * width - this.Width / 2 && player._x+delta.X != this.Width / 2)
+            {//фикс камеры при отпускании клавиши
+                delta.X = this.Width / 2 - player._x;
+            }
         }
 
         private void keyboard(object sender, KeyEventArgs e)
