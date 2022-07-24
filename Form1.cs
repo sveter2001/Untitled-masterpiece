@@ -70,12 +70,12 @@ namespace Untitled_masterpiece
 
             map = new int[10, 20]{
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
-            { 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 },
+            { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
+            { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } } ;
@@ -243,6 +243,14 @@ namespace Untitled_masterpiece
                     break;
             }
 
+            if (player._x > this.Width / 2 && player._x < sideOfMapObject * width - this.Width / 2 && player._x + delta.X != this.Width / 2)
+            {//фикс камеры 
+                delta.X = this.Width / 2 - player._x;
+            }
+            if (player._y > this.Height / 2 - 11 && player._y < sideOfMapObject * height - this.Height / 2 && player._y + delta.Y != this.Height / 2)
+            {//фикс камеры 
+                delta.Y = this.Height / 2 - player._y;
+            }
 
             label1.Text = delta.X.ToString();
             label2.Text = delta.Y.ToString();
@@ -279,10 +287,7 @@ namespace Untitled_masterpiece
             }
             player._dir.X = 0;
 
-            if (player._x > this.Width / 2  && player._x < sideOfMapObject * width - this.Width / 2 && player._x+delta.X != this.Width / 2)
-            {//фикс камеры при отпускании клавиши
-                delta.X = this.Width / 2 - player._x;
-            }
+            
         }
 
         private void keyboard(object sender, KeyEventArgs e)
