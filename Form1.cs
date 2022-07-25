@@ -26,7 +26,6 @@ namespace Untitled_masterpiece
         Vector jumpL = new Vector(-6, -35);
         Vector jumpR = new Vector(6, -35);
         Vector vector;
-        Vector check = new Vector(0,0);
         int width = 20;
         int height = 10;
         bool camera = false;
@@ -50,14 +49,14 @@ namespace Untitled_masterpiece
 
             dir = new Vector(0, 0);
 
-            player = new Player(new Size(128,128),272,100,playerImg,dir);
+            player = new Player(new Size(128, 128), 272, 100, playerImg, dir);
             timer2.Interval = 1;
             timer2.Tick += new EventHandler(updateMove);
-            timer2.Start();
+            //timer2.Start();
 
             timer1.Interval = 50;
             timer1.Tick += new EventHandler(update);
-            timer1.Start();
+            //timer1.Start();
 
 
             sideOfMapObject = 128;
@@ -65,7 +64,7 @@ namespace Untitled_masterpiece
             this.KeyDown += new KeyEventHandler(keyboard);
             this.KeyUp += new KeyEventHandler(freeKeyb);
 
-            delta = new Point(0,0);
+            delta = new Point(0, 0);
 
 
             map = new int[10, 20]{
@@ -78,7 +77,7 @@ namespace Untitled_masterpiece
             { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } } ;
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 
         }
 
@@ -120,10 +119,6 @@ namespace Untitled_masterpiece
 
         private void updateMove(object sender, EventArgs e)
         {
-
-            
-
-
             switch (currAnimation)
             {
                 case 1:
@@ -388,11 +383,11 @@ namespace Untitled_masterpiece
             button_Exit.Visible = false;
 
 
-
-
-
+            timer1.Start();
+            timer2.Start();
 
         }
-       
+
     }
+
 }
